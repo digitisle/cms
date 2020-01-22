@@ -1,25 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import Markdown from "markdown-to-jsx";
+
+import "./App.css";
 
 function App() {
+  const [page, setPage] = useState({});
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      // You can await here
+      const response = await fetch("/api/home");
+      const json = await response.json();
+      setPage(json);
+      setLoaded(true);
+    }
+    if (!loaded) {
+      fetchData();
+    }
+  }, [loaded]); // Or [] if effect doesn't need props or state
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    loaded && (
+      <div
+        className="body"
+        style={{ backgroundImage: `url(${page.image.url})` }}
+      >
+        <h1 className="heading">{page.title}</h1>
+        <div className="grid">
+          <p className="column">
+            <Markdown>{page.column1}</Markdown>
+          </p>
+          <p className="column">
+            <Markdown>{page.column2}</Markdown>
+          </p>
+        </div>
+      </div>
+    )
   );
 }
 
