@@ -4,13 +4,13 @@ const app = express();
 const port = 3001;
 
 const Stack = Contentstack.Stack(
-  "blt96987392ab8fa57d",
-  "bltbf47eb0fe14918eb",
+  "bltcbffb05672122629",
+  "blt498c937423381d40",
   "local"
 );
 
 app.get("/api/home", (req, res) => {
-  const Query = Stack.ContentType("page").Entry("blt786700107042dc28");
+  const Query = Stack.ContentType("page").Entry("bltf0d59f5436c8c723");
   Query.fetch().then(
     function success(entry) {
       res.json(entry.toJSON()); // Convert the entry result object to JSON
