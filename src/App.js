@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import "./App.css";
 
-function App() {
+const App = () => {
   return (
     <div>
       <h1>Let's build it!</h1>
     </div>
   );
-}
+};
 
 export default App;
